@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная</title>
+    <title>Бинго</title>
     <link rel="icon" href="../../src/logo.png" type="image/png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="main_style.css">
@@ -18,60 +18,55 @@
                     </a>
                 </th>
                 <th>
-                    <h1 class="single-line-header">Роль стадного чувства в жизни учащихся СУНЦ МГУ</h1>
+                    <h1 class="single-line-header">Бинго</h1>
                 </th>
             </tr>
         </table>
     </header>
     <nav>
         <ul>
-            <li><button onclick="window.location.href='../index/index.html';" class="main-button">Главная</li>
-            <li><button onclick="window.location.href='../articles/articles.html';">Статьи</li>
-            <li><button onclick="window.location.href='../contacts/contacts.html';">Контакты</li>
-            <li><button onclick="window.location.href='../resourses/resourses.html';">Источники</li>
+            <li><button onclick="window.location.href='../index/index.html';" class="main-button">Список задач</li>
+            !for i in range button with team!
         </ul>
     </nav>
-    
-    <h2 class="h2-text">Добро пожаловать в мир стадного чувства в СУНЦ МГУ!</h2>
-    
+
+    <div class="table-container">
+        <script>
+            function fetchDataAndDisplayTable() {
+                try {
+                    const response = fetch('https://fynjybath.space:8080/get_table');
+                    const matrix = response.json();
+
+                    const table = document.createElement('table');
+                    matrix.forEach(row => {
+                    const tableRow = document.createElement('tr');
+                    row.forEach(cell => {
+                        const tableCell = document.createElement('td');
+                        tableCell.textContent = cell;
+                        tableRow.appendChild(tableCell);
+                    });
+                    table.appendChild(tableRow);
+                    });
+
+                    document.getElementById('tableContainer').appendChild(table);
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                }
+            }
+            fetchDataAndDisplayTable(); 
+          </script>
+    </div>
+
     <div class="table-container">
         <table>
+
+            !for i in range rows!
             <tr>
-                <td>
-                    <p class="index-text">
-                        А что такое стадное чувство? Ну, представьте себе, что вы - это овечка, а ваша толпа - это вот эти мягкие, пушистые заросли сосен, в которых так уютно и безопасно! В общем, стадное чувство - это такая врожденная потребность чувствовать себя частью коллектива, быть частью толпы, где каждый - как звезда в небе, но вместе вы - целая галактика!
-                    </p>
-                </td>
-                <td>
-                    <a href="../../src/sheep.png" target="_blank">
-                        <img src="../../src/sheep.png">
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="../../src/sheeps.png" target="_blank">
-                        <img src="../../src/sheeps.png">
-                    </a>
-                </td>
-                <td>
-                    <p class="index-text">
-                        А у нас, на факультете <a href="https://msu.ru/" class="link" target="_blank">МГУ</a>, этому чувству научились настоящие профессионалы. Мы, ученики, преподаватели, сотрудники - все мы любим собираться вместе, будь то на лекции, научном семинаре или просто в столовой за кружечкой кофе. Почему? Потому что вместе всегда веселее! Мы - это не просто общество, мы - настоящая стая, готовая ко всему!
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p class="index-text">
-                        Итак, друзья, давайте вместе исследовать мир стадного чувства в <a href="https://internat.msu.ru" target="_blank" class="link">СУНЦ МГУ</a> - месте, где каждый найдет свою "овечку" и вольется в веселую, энергичную "толпу" наших ярких и замечательных людей!
-                        В этом вам как раз поможет наш сайт. Погнали на волне стадного духа!
-                    </p>
-                </td>
-                <td>
-                    <a href="../../src/sheeper.png" target="_blank">
-                        <img src="../../src/sheeper.png">
-                    </a>
-                </td>
+                !for i in range columns!
+                    <td>
+                        <p class="index-text">
+                        </p>
+                    </td>
             </tr>
         </table>
     </div>
