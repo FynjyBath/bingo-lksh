@@ -45,7 +45,7 @@
                     console.log(Http.responseText);
                 }
 
-                const matrix = parseMatrixFromString(Http.responseText);
+                const matrix = parseMatrixFromString(Http.responseText.slice(1, Http.responseText.length - 1));
                 console.log(matrix);
 
                 const table = document.createElement('table');
