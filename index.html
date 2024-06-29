@@ -30,18 +30,23 @@
 
     <div class="table-container">
         <script>
+            function parseMatrixFromString(matrixString) {
+                const rows = matrixString.trim().split('], [').map(row => row.trim());
+                const matrix = rows.map(row => row.slice(1, length(row)).split(', ').map(element => element.trim()));
+                return matrix;
+            }
             window.addEventListener('DOMContentLoaded', function () {
                 const Http = new XMLHttpRequest();
                 const url='https://fynjybath.space:3000/get_table';
                 Http.open("GET", url);
-                Http.responseType = 'json';
                 Http.send();
 
                 Http.onreadystatechange = (e) => {
                     console.log(Http.responseText);
                 }
 
-                const matrix = Http.response;
+                const matrix = parseMatrixFromString(Http.responseText);
+                console.log(matrix);
 
                 const table = document.createElement('table');
                 matrix.forEach(row => {
