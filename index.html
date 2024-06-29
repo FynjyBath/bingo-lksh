@@ -31,7 +31,9 @@
     <div class="table-container">
         <script>
             function parseMatrixFromString(matrixString) {
+                console.log(matrixString);
                 const rows = matrixString.trim().split('],[').map(row => row.trim());
+                console.log(rows);
                 const matrix = rows.map(row => row.slice(1, row.length).split(',').map(element => element.trim()));
                 return matrix;
             }
