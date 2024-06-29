@@ -31,8 +31,8 @@
     <div class="table-container">
         <script>
             function parseMatrixFromString(matrixString) {
-                const rows = matrixString.trim().split('], [').map(row => row.trim());
-                const matrix = rows.map(row => row.slice(1, row.length).split(', ').map(element => element.trim()));
+                const rows = matrixString.trim().split('],[').map(row => row.trim());
+                const matrix = rows.map(row => row.slice(1, row.length).split(',').map(element => element.trim()));
                 return matrix;
             }
             window.addEventListener('DOMContentLoaded', function () {
