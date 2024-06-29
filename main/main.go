@@ -129,7 +129,7 @@ func GetTable(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/main_page", GetTable)
+	http.HandleFunc("/get_table", GetTable)
 
 	log.Println("Listening on :8081...")
 	http.ListenAndServe(":8080", nil)

@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Бинго</title>
-    <link rel="icon" href="../../src/logo.png" type="image/png">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="src/logo.jpg" type="image/png">
     <link rel="stylesheet" href="main_style.css">
 </head>
 <body>
@@ -14,7 +13,7 @@
             <tr>
                 <th>
                     <a href="../index/index.html">
-                        <img src="../../src/logo.png" class="logo">
+                        <img src="src/logo.jpg" class="logo">
                     </a>
                 </th>
                 <th>
@@ -31,13 +30,21 @@
 
     <div class="table-container">
         <script>
-            function fetchDataAndDisplayTable() {
-                try {
-                    const response = fetch('https://fynjybath.space:8080/get_table');
-                    const matrix = response.json();
+            window.addEventListener('load', () => {
+                const Http = new XMLHttpRequest();
+                const url='http://fynjybath.space:8080/get_table';
+                Http.open("GET", url);
+                Http.setRequestHeader('Access-Control-Allow-Origin', '*');
+                Http.send();
 
-                    const table = document.createElement('table');
-                    matrix.forEach(row => {
+                Http.onreadystatechange = (e) => {
+                    console.log(Http.responseText);
+                }
+
+                const response = JSON.parse(Http.responseText);
+
+                const table = document.createElement('table');
+                matrix.forEach(row => {
                     const tableRow = document.createElement('tr');
                     row.forEach(cell => {
                         const tableCell = document.createElement('td');
@@ -45,16 +52,10 @@
                         tableRow.appendChild(tableCell);
                     });
                     table.appendChild(tableRow);
-                    });
+                });
 
-                    document.getElementById('tableContainer').appendChild(table);
-                } catch (error) {
-                    const table = document.createElement('a');
-                    table.textContent = error;
-                    document.getElementById('tableContainer').appendChild(table);
-                }
-            }
-            fetchDataAndDisplayTable(); 
+                document.getElementById('tableContainer').appendChild(table);
+            });
           </script>
     </div>
     
