@@ -30,34 +30,35 @@
 
     <div class="table-container">
         <script>
+            function parseMatrixFromString(matrixString) {
+                const rows = matrixString.trim().split('],[').map(row => row.trim());
+                const matrix = rows.map(row => row.slice(1, row.length).split(',').map(element => element.trim()));
+                return matrix;
+            }
             window.addEventListener('DOMContentLoaded', function () {
                 const Http = new XMLHttpRequest();
                 const url='https://fynjybath.space:3000/get_table';
                 Http.open("GET", url);
                 Http.send();
 
-                const matrixString = Http.responseText;
-
                 Http.onreadystatechange = (e) => {
-                    console.log(matrixString);
-                }
+                    console.log(Http.responseText);
+                    const matrix = parseMatrixFromString(Http.responseText.slice(1, Http.responseText.length - 1));
+                    console.log(matrix);
 
-                const rows = matrixString.trim().split('],[').map(row => row.trim());
-                const matrix = rows.map(row => row.slice(1, row.length).split(',').map(element => element.trim()));
-                console.log(matrix);
-
-                const table = document.createElement('table');
-                matrix.forEach(row => {
-                    const tableRow = document.createElement('tr');
-                    row.forEach(cell => {
-                        const tableCell = document.createElement('td');
-                        tableCell.textContent = cell;
-                        tableRow.appendChild(tableCell);
+                    const table = document.createElement('table');
+                    matrix.forEach(row => {
+                        const tableRow = document.createElement('tr');
+                        row.forEach(cell => {
+                            const tableCell = document.createElement('td');
+                            tableCell.textContent = cell;
+                            tableRow.appendChild(tableCell);
+                        });
+                        table.appendChild(tableRow);
                     });
-                    table.appendChild(tableRow);
-                });
 
-                document.getElementById('tableContainer').appendChild(table);
+                    document.getElementById('tableContainer').appendChild(table);
+                }
             });
           </script>
     </div>
