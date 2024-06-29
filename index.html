@@ -29,7 +29,7 @@
     </nav>
 
     <div class="table-container">
-        <script>
+        <script defer>
             function parseMatrixFromString(matrixString) {
                 const rows = matrixString.trim().split('],[').map(row => row.trim());
                 const matrix = rows.map(row => row.slice(1, row.length).split(',').map(element => element.trim()));
