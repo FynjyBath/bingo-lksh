@@ -30,11 +30,10 @@
 
     <div class="table-container">
         <script>
-            window.addEventListener('load', () => {
+            window.addEventListener('"DOMContentLoaded"', function () {
                 const Http = new XMLHttpRequest();
                 const url='https://fynjybath.space:3000/get_table';
                 Http.open("GET", url);
-                Http.setRequestHeader('Access-Control-Allow-Origin', '*');
                 Http.send();
 
                 Http.onreadystatechange = (e) => {
