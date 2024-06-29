@@ -47,15 +47,15 @@
                     console.log(matrix);
 
                     const table = document.createElement('table');
-                    matrix.forEach(row => {
+                    for (let i = 0; i < matrix.length; i++) {
                         const tableRow = document.createElement('tr');
-                        row.forEach(cell => {
+                        for (let j = 0; j < matrix[i].length; j++) {
                             const tableCell = document.createElement('td');
-                            tableCell.textContent = cell;
+                            tableCell.textContent = matrix[i][j];
                             tableRow.appendChild(tableCell);
-                        });
+                        }
                         table.appendChild(tableRow);
-                    });
+                    }
 
                     document.getElementById('tableContainer').appendChild(table);
                 }
