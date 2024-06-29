@@ -41,26 +41,24 @@
             const url='https://fynjybath.space:3000/get_table';
             Http.open("GET", url);
             Http.send();
-            
-            let response = '';
-            Http.onreadystatechange = (e) => {
-                console.log(Http.responseText);
-                response = Http.responseText;
-            }
 
-            const table = document.createElement('table');
-            const matrix = parseMatrixFromString(response.slice(1, response.length - 1));
-            console.log(matrix);
-            for (let i = 0; i < matrix.length; i++) {
-                const tableRow = document.createElement('tr');
-                for (let j = 0; j < matrix[i].length; j++) {
-                    const tableCell = document.createElement('td');
-                    tableCell.textContent = matrix[i][j];
-                    tableRow.appendChild(tableCell);
+            Http.onload = function() {
+                const response = Http.responseText;
+                console.log(response);
+                const table = document.createElement('table');
+                const matrix = parseMatrixFromString(response.slice(1, response.length - 1));
+                console.log(matrix);
+                for (let i = 0; i < matrix.length; i++) {
+                    const tableRow = document.createElement('tr');
+                    for (let j = 0; j < matrix[i].length; j++) {
+                        const tableCell = document.createElement('td');
+                        tableCell.textContent = matrix[i][j];
+                        tableRow.appendChild(tableCell);
+                    }
+                    table.appendChild(tableRow);
                 }
-                table.appendChild(tableRow);
-            }
-            document.getElementById('tableContainer').appendChild(table);
+                document.getElementById('tableContainer').appendChild(table);
+            };
         });
       </script>
     
