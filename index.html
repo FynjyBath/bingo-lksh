@@ -34,13 +34,14 @@
                 const Http = new XMLHttpRequest();
                 const url='https://fynjybath.space:3000/get_table';
                 Http.open("GET", url);
+                Http.responseType = 'json';
                 Http.send();
 
                 Http.onreadystatechange = (e) => {
                     console.log(Http.responseText);
                 }
 
-                const response = Http.response.json();
+                const matrix = Http.response;
 
                 const table = document.createElement('table');
                 matrix.forEach(row => {
