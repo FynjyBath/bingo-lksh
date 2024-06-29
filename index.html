@@ -30,25 +30,20 @@
 
     <div class="table-container">
         <script>
-            function parseMatrixFromString(matrixString) {
-                console.log(matrixString);
-                const rows = matrixString.trim().split('],[').map(row => row.trim());
-                console.log(rows);
-                const matrix = rows.map(row => row.slice(1, row.length).split(',').map(element => element.trim()));
-                return matrix;
-            }
             window.addEventListener('DOMContentLoaded', function () {
                 const Http = new XMLHttpRequest();
                 const url='https://fynjybath.space:3000/get_table';
                 Http.open("GET", url);
                 Http.send();
 
-                const response = Http.responseText;
+                const matrixString = Http.responseText;
+
                 Http.onreadystatechange = (e) => {
-                    console.log(response);
+                    console.log(matrixString);
                 }
 
-                const matrix = parseMatrixFromString(response.slice(1, response.length - 1));
+                const rows = matrixString.trim().split('],[').map(row => row.trim());
+                const matrix = rows.map(row => row.slice(1, row.length).split(',').map(element => element.trim()));
                 console.log(matrix);
 
                 const table = document.createElement('table');
