@@ -42,9 +42,10 @@
             Http.open("GET", url);
             Http.send();
             
+            let response = '';
             Http.onreadystatechange = (e) => {
                 console.log(Http.responseText);
-                const response = Http.responseText;
+                response = Http.responseText;
             }
 
             const table = document.createElement('table');
