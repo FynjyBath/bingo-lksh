@@ -131,6 +131,9 @@ func GetTable(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/get_table", GetTable)
 
-	log.Println("Listening on :8081...")
-	http.ListenAndServe(":8080", nil)
+	log.Println("Listening on :8080...")
+	err := http.ListenAndServeTLS(":8080", "server.crt", "server.key", nil)
+    if err != nil {
+        log.Fatal("ListenAndServe: ", err)
+    }
 }

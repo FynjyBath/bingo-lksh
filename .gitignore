@@ -1,2 +1,4 @@
 
 main/config.json
+main/server.crt
+main/server.key
