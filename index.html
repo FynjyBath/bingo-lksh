@@ -28,40 +28,40 @@
         </ul>
     </nav>
 
-    <div class="table-container">
-        <script defer>
-            function parseMatrixFromString(matrixString) {
-                const rows = matrixString.trim().split('],[').map(row => row.trim());
-                const matrix = rows.map(row => row.slice(1, row.length).split(',').map(element => element.trim()));
-                return matrix;
-            }
-            window.addEventListener('DOMContentLoaded', function () {
-                const Http = new XMLHttpRequest();
-                const url='https://fynjybath.space:3000/get_table';
-                Http.open("GET", url);
-                Http.send();
+    <div class="table-container" id="tableContainer"></div>
 
-                Http.onreadystatechange = (e) => {
-                    console.log(Http.responseText);
-                    const matrix = parseMatrixFromString(Http.responseText.slice(1, Http.responseText.length - 1));
-                    console.log(matrix);
+    <script defer>
+        function parseMatrixFromString(matrixString) {
+            const rows = matrixString.trim().split('],[').map(row => row.trim());
+            const matrix = rows.map(row => row.slice(1, row.length).split(',').map(element => element.trim()));
+            return matrix;
+        }
+        window.addEventListener('DOMContentLoaded', function () {
+            const Http = new XMLHttpRequest();
+            const url='https://fynjybath.space:3000/get_table';
+            Http.open("GET", url);
+            Http.send();
 
-                    const table = document.createElement('table');
-                    for (let i = 0; i < matrix.length; i++) {
-                        const tableRow = document.createElement('tr');
-                        for (let j = 0; j < matrix[i].length; j++) {
-                            const tableCell = document.createElement('td');
-                            tableCell.textContent = matrix[i][j];
-                            tableRow.appendChild(tableCell);
-                        }
-                        table.appendChild(tableRow);
+            Http.onreadystatechange = (e) => {
+                console.log(Http.responseText);
+                const matrix = parseMatrixFromString(Http.responseText.slice(1, Http.responseText.length - 1));
+                console.log(matrix);
+
+                const table = document.createElement('table');
+                for (let i = 0; i < matrix.length; i++) {
+                    const tableRow = document.createElement('tr');
+                    for (let j = 0; j < matrix[i].length; j++) {
+                        const tableCell = document.createElement('td');
+                        tableCell.textContent = matrix[i][j];
+                        tableRow.appendChild(tableCell);
                     }
-
-                    document.getElementById('tableContainer').appendChild(table);
+                    table.appendChild(tableRow);
                 }
-            });
-          </script>
-    </div>
+
+                document.getElementById('tableContainer').appendChild(table);
+            }
+        });
+      </script>
     
     <footer class="copyright">
         <hr>
