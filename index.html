@@ -40,7 +40,7 @@
                     console.log(Http.responseText);
                 }
 
-                const response = JSON.parse(Http.responseText);
+                const response = Http.response.json();
 
                 const table = document.createElement('table');
                 matrix.forEach(row => {
