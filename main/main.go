@@ -104,6 +104,7 @@ func QueryToAPI(cfg config.Config) (Contest, error) {
 		}
 	}
 
+	log.Println(contest)
 	return contest, nil
 }
 
