@@ -54,6 +54,8 @@
                         a.textContent = matrix[i][j];
                         a.href = json['link'] + "/problem/" + matrix[i][j];
 
+                        tableCell.href = json['link'] + "/problem/" + matrix[i][j];
+
                         tableCell.appendChild(a);
                         tableRow.appendChild(tableCell);
                     }
