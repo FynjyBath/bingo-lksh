@@ -58,12 +58,17 @@ nav ul li button:hover {
 
 .single-line-header {
     padding: 2%;
-    font-size: 2vw;
+    font-size: 3vw;
+}
+
+.logo_empty {
+    width: 70%;
 }
 
 .header {
     margin: 0 auto;
     width: 90%;
+    align-items: left;
 }
 
 .copyright {
@@ -78,8 +83,12 @@ nav ul li button:hover {
 }
 
 img {
-    max-width: 10%;
+    width: 50%;
     height: auto;
+}
+
+.a_logo {
+    text-align: left;
 }
 
 .link {
