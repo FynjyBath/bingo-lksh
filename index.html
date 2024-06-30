@@ -49,8 +49,12 @@
                     const tableRow = document.createElement('tr');
                     for (let j = 0; j < matrix[i].length; j++) {
                         const tableCell = document.createElement('td');
-                        tableCell.textContent = matrix[i][j];
-                        tableCell.href = json['link'] + "/problem/" + matrix[i][j];
+
+                        const a = document.createElement('a');
+                        a.textContent = matrix[i][j];
+                        a.href = json['link'] + "/problem/" + matrix[i][j];
+
+                        tableCell.appendChild(a);
                         tableRow.appendChild(tableCell);
                     }
                     table.appendChild(tableRow);
