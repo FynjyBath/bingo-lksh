@@ -28,5 +28,9 @@ func LoadConfig(filename string) Config {
 	if err != nil {
 		log.Fatal(err)
 	}
+	log.Println(config.ApiKey)
+	log.Println(config.ApiSecret)
+	log.Println(config.ContestID)
+	log.Println(config.Link)
 	return config
 }
