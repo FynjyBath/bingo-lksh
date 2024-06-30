@@ -50,6 +50,7 @@
                     for (let j = 0; j < matrix[i].length; j++) {
                         const tableCell = document.createElement('td');
                         tableCell.textContent = matrix[i][j];
+                        tableCell.href = json['link'] + "/problem/" + matrix[i][j];
                         tableRow.appendChild(tableCell);
                     }
                     table.appendChild(tableRow);

@@ -18,8 +18,9 @@ import (
 )
 
 type Contest struct {
-	Problems [][]string         `json:"problems"`
+	Problems [][]string       `json:"problems"`
 	Teams    map[string][]int `json:"solved"`
+	Link     string           `json:"link"`
 }
 
 func QueryToAPI(cfg config.Config) (Contest, error) {
@@ -66,6 +67,8 @@ func QueryToAPI(cfg config.Config) (Contest, error) {
 	result := jsonData["result"].(map[string]interface{})
 
 	var contest Contest
+	contest.Link = cfg.Link
+
 	var lst = make([]string, 0)
 	contest.Teams = make(map[string][]int)
 
@@ -77,8 +80,8 @@ func QueryToAPI(cfg config.Config) (Contest, error) {
 	sz := int(math.Sqrt(float64(len(lst) + 1)))
 	contest.Problems = make([][]string, sz)
 	for i := 0; i < len(lst); i += sz {
-		for j := i; j < i + sz; j++ {
-			contest.Problems[i / sz] = append(contest.Problems[i / sz], lst[j])
+		for j := i; j < i+sz; j++ {
+			contest.Problems[i/sz] = append(contest.Problems[i/sz], lst[j])
 		}
 	}
 
@@ -134,7 +137,7 @@ func main() {
 
 	log.Println("Listening on :3000...")
 	err := http.ListenAndServeTLS(":3000", "server.crt", "server.key", nil)
-    if err != nil {
-        log.Fatal("ListenAndServe: ", err)
-    }
+	if err != nil {
+		log.Fatal("ListenAndServe: ", err)
+	}
 }

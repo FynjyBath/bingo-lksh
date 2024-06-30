@@ -10,6 +10,7 @@ type Config struct {
 	ApiKey    string `json:"apiKey"`
 	ApiSecret string `json:"apiSecret"`
 	ContestID int    `json:"contestID"`
+	Link      string `json:"link"`
 }
 
 func LoadConfig(filename string) Config {
