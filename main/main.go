@@ -18,7 +18,7 @@ import (
 )
 
 type Contest struct {
-	Problems []string         `json:"problems"`
+	Problems [][]string         `json:"problems"`
 	Teams    map[string][]int `json:"solved"`
 }
 
@@ -66,12 +66,20 @@ func QueryToAPI(cfg config.Config) (Contest, error) {
 	result := jsonData["result"].(map[string]interface{})
 
 	var contest Contest
-	contest.Problems = make([]string, 0)
+	var lst = make([]string, 0)
 	contest.Teams = make(map[string][]int)
 
 	problems := result["problems"].([]interface{})
 	for _, problem := range problems {
-		contest.Problems = append(contest.Problems, (problem.(map[string]interface{}))["index"].(string))
+		lst = append(lst, (problem.(map[string]interface{}))["index"].(string))
+	}
+
+	sz := int(math.Sqrt(float64(len(lst) + 1)))
+	contest.Problems = make([][]string, sz)
+	for i := 0; i < len(lst); i += sz {
+		for j := i; j < i + sz; j++ {
+			contest.Problems[i / sz] = append(contest.Problems[i / sz], lst[j])
+		}
 	}
 
 	rows := result["rows"].([]interface{})
@@ -109,16 +117,8 @@ func GetContest() Contest {
 
 func GetTable(w http.ResponseWriter, r *http.Request) {
 	contest := GetContest()
-	sz := int(math.Sqrt(float64(len(contest.Problems) + 1)))
 
-	matrix := make([][]string, sz)
-	for i := 0; i < len(contest.Problems); i += sz {
-		for j := i; j < i + sz; j++ {
-			matrix[i / sz] = append(matrix[i / sz], contest.Problems[j])
-		}
-	}
-
-	jsonData, err := json.Marshal(matrix)
+	jsonData, err := json.Marshal(contest)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

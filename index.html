@@ -33,7 +33,18 @@
     <script defer>
         function parseMatrixFromString(matrixString) {
             const rows = matrixString.trim().split('],[').map(row => row.trim());
-            const matrix = rows.map(row => row.slice(1, row.length).split(',').map(element => element.trim()));
+            const matrix = rows.map(row => row.split(',').map(element => element.trim()));
+            for (let i = 0; i < matrix.length; i++) {
+                for (let j = 0; j < matrix[i].length; j++) {
+                    const len = matrix[i][j].length;
+                    if (matrix[i][j][0] == '[') {
+                        matrix[i][j] = matrix[i][j].slice(1, len);
+                    }
+                    if (matrix[i][j][len - 1] == ']') {
+                        matrix[i][j] = matrix[i][j].slice(0, len - 1);
+                    }
+                }
+            }
             return matrix;
         }
         window.addEventListener('DOMContentLoaded', function () {
@@ -43,11 +54,14 @@
             Http.send();
 
             Http.onload = function() {
-                const response = Http.responseText;
-                console.log(response);
-                const table = document.createElement('table');
-                const matrix = parseMatrixFromString(response.slice(1, response.length - 1));
+                const json = JSON.parse(Http.responseText);
+                console.log(json);
+
+                const problems = json['problems'];
+                const matrix = parseMatrixFromString(problems.slice(1, problems.length - 1));
                 console.log(matrix);
+
+                const table = document.createElement('table');
                 for (let i = 0; i < matrix.length; i++) {
                     const tableRow = document.createElement('tr');
                     for (let j = 0; j < matrix[i].length; j++) {
@@ -60,7 +74,7 @@
                 document.getElementById('tableContainer').appendChild(table);
             };
         });
-      </script>
+    </script>
     
     <footer class="copyright">
         <hr>
