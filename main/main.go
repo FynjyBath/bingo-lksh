@@ -104,7 +104,9 @@ func QueryToAPI(cfg config.Config) (Contest, error) {
 		}
 	}
 
-	log.Println(contest)
+	log.Println(contest.Link)
+	log.Println(contest.Teams)
+	log.Println(contest.Problems)
 	return contest, nil
 }
 
