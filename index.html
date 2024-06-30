@@ -31,22 +31,6 @@
     <div class="table-container" id="tableContainer"></div>
 
     <script defer>
-        function parseMatrixFromString(matrixString) {
-            const rows = matrixString.trim().split('],[').map(row => row.trim());
-            const matrix = rows.map(row => row.split(',').map(element => element.trim()));
-            for (let i = 0; i < matrix.length; i++) {
-                for (let j = 0; j < matrix[i].length; j++) {
-                    const len = matrix[i][j].length;
-                    if (matrix[i][j][0] == '[') {
-                        matrix[i][j] = matrix[i][j].slice(1, len);
-                    }
-                    if (matrix[i][j][len - 1] == ']') {
-                        matrix[i][j] = matrix[i][j].slice(0, len - 1);
-                    }
-                }
-            }
-            return matrix;
-        }
         window.addEventListener('DOMContentLoaded', function () {
             const Http = new XMLHttpRequest();
             const url='https://fynjybath.space:3000/get_table';
@@ -57,9 +41,7 @@
                 const json = JSON.parse(Http.responseText);
                 console.log(json);
 
-                const problems = json['problems'];
-                const matrix = parseMatrixFromString(problems.slice(1, problems.length - 1));
-                console.log(matrix);
+                const matrix = json['problems'];
 
                 const table = document.createElement('table');
                 for (let i = 0; i < matrix.length; i++) {
