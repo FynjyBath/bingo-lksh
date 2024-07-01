@@ -23,6 +23,8 @@ type Contest struct {
 	Link     string           `json:"link"`
 }
 
+var contest Contest
+
 func QueryToAPI(cfg config.Config) (Contest, error) {
 	now := strconv.Itoa(int(time.Now().Unix()))
 
@@ -121,26 +123,30 @@ func GetContest() Contest {
 	return contest
 }
 
-func GetTable(w http.ResponseWriter, r *http.Request) {
-	contest := GetContest()
-
+func GetQuery(w http.ResponseWriter, r *http.Request) {
 	jsonData, err := json.Marshal(contest)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	fmt.Fprint(w, string(jsonData))
 }
 
 func main() {
-	http.HandleFunc("/get_table", GetTable)
+	http.HandleFunc("/get_table", GetQuery)
 
 	log.Println("Listening on :3000...")
 	err := http.ListenAndServeTLS(":3000", "server.crt", "server.key", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
+	}
+
+	for {
+		go func() {
+			contest = GetContest()
+		}()
+		time.Sleep(time.Second * 5)
 	}
 }
