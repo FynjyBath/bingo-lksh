@@ -29,7 +29,27 @@
         </ul>
     </nav>
 
-    <div class="table-container" id="tableContainer"></div>
+    <div class="tabs" id="div__tabs">
+        <input class="tabs__tab" type="radio" id="tabs__tab1" name="tabstab" checked="checked"/>
+        <label class="tabs__title" for="tabs__tab1">Главная</label>
+        <div class="tabs__text">
+            <ul>
+                <li><a href="https://msu.ru/" class="link" target="_blank">МГУ</a></li>
+                <li><a href="https://internat.msu.ru" target="_blank" class="link">СУНЦ МГУ</a></li>
+            </ul>
+        </div>
+        
+        <input class="tabs__tab" type="radio" id="tabs__tab2" name="tabstab"/>
+        <label class="tabs__title" for="tabs__tab2">Статьи</label>
+        <div class="tabs__text">
+            <ul>
+                <li><a href="../../odd_pages/article1/article1.html" target="_blank" class="link">"Почему люди иногда ведут себя как бараны?" Анураз Минал Очкобар</a></li>
+                <li><a href="../../odd_pages/article2/article2.html" target="_blank" class="link">"СУНЦы ходят в зал!?" Coach</a></li>
+                <li><a href="../../odd_pages/article3/article3.html" target="_blank" class="link">"What is herd mentality?" Арслан Гуглевич</a></li>
+                <li><a href="../../odd_pages/article4/article4.html" target="_blank" class="link">"Как противостоять стадному чувству?" Поелаг Вкусненько</a></li>
+            </ul>
+        </div>
+    </div>
 
     <script defer>
         window.addEventListener('DOMContentLoaded', function () {
@@ -44,6 +64,23 @@
 
                 const matrix = json['problems'];
 
+                const tab_tab = document.createElement('input');
+                tab_tab.type = 'radio';
+                tab_tab.class = 'tabs__tab';
+                tab_tab.checked = 'checked';
+                tab_tab.id = 'tabs__tab0';
+                document.getElementById('div__tabs').appendChild(tab_tab);
+
+                const tab_title = document.createElement('label');
+                tab_title.class = 'tabs__title';
+                tab_title.for = 'tabs__tab0';
+                document.getElementById('div__tabs').appendChild(tab_title);
+
+                const tab_text = document.createElement('div');
+                tab_text.class = 'tabs__text';
+
+                const table_container = document.createElement('div');
+                table_container.class = 'table-container';
                 const table = document.createElement('table');
                 for (let i = 0; i < matrix.length; i++) {
                     const tableRow = document.createElement('tr');
@@ -61,7 +98,10 @@
                     }
                     table.appendChild(tableRow);
                 }
-                document.getElementById('tableContainer').appendChild(table);
+                table_container.appendChild(table);
+                tab_text.appendChild(table_container);
+
+                document.getElementById('div__tabs').appendChild(tab_text);
             };
         });
     </script>
