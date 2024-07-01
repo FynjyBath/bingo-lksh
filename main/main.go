@@ -140,6 +140,8 @@ func GetQuery(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	contest = GetContest()
+	
 	http.HandleFunc("/get_table", GetQuery)
 
 	log.Println("Listening on :3000...")
