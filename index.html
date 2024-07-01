@@ -69,13 +69,16 @@
                     for (let j = 0; j < matrix[i].length; j++) {
                         const tableCell = document.createElement('td');
 
-                        const a = document.createElement('a');
-                        a.textContent = ' ';
+                            const a = document.createElement('a');
+                            a.textContent = ' ';
 
-                        tableCell.onclick = "window.location.href='" + json['link'] + "/problem/" + matrix[i][j] + "'";
+                            tableCell.onclick = function(event) {
+                                new_window = window.open(json['link'] + "/problem/" + matrix[i][j]);
+                            };
+                            tableCell.className = 'not__solved';
 
-                        tableCell.appendChild(a);
-                        tableRow.appendChild(tableCell);
+                            tableCell.appendChild(a);
+                            tableRow.appendChild(tableCell);
                     }
                     table.appendChild(tableRow);
                 }
