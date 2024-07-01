@@ -24,6 +24,7 @@ type Contest struct {
 }
 
 var contest Contest
+var last_time time.Time
 
 func QueryToAPI(cfg config.Config) (Contest, error) {
 	now := strconv.Itoa(int(time.Now().Unix()))
@@ -124,6 +125,10 @@ func GetContest() Contest {
 }
 
 func GetQuery(w http.ResponseWriter, r *http.Request) {
+	if time.Now().Before(last_time.Add(time.Second * 5)) {
+		contest = GetContest()
+	    last_time = time.Now()
+	}
 	jsonData, err := json.Marshal(contest)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -141,12 +146,5 @@ func main() {
 	err := http.ListenAndServeTLS(":3000", "server.crt", "server.key", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
-	}
-
-	for {
-		go func() {
-			contest = GetContest()
-		}()
-		time.Sleep(time.Second * 5)
 	}
 }
