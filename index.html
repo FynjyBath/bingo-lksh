@@ -70,10 +70,9 @@
                         const tableCell = document.createElement('td');
 
                         const a = document.createElement('a');
-                        a.textContent = matrix[i][j];
-                        a.href = json['link'] + "/problem/" + matrix[i][j];
+                        a.textContent = ' ';
 
-                        tableCell.href = json['link'] + "/problem/" + matrix[i][j];
+                        tableCell.onclick = "window.location.href='" + json['link'] + "/problem/" + matrix[i][j] + "'";
 
                         tableCell.appendChild(a);
                         tableRow.appendChild(tableCell);
@@ -108,14 +107,16 @@
                     const tables = document.createElement('table');
                     for (let i = 0; i < matrix.length; i++) {
                         const tableRow = document.createElement('tr');
+                        tableRow.className = 'table_row';
                         for (let j = 0; j < matrix[i].length; j++) {
                             const tableCell = document.createElement('td');
 
                             const a = document.createElement('a');
-                            a.textContent = matrix[i][j];
-                            a.href = json['link'] + "/problem/" + matrix[i][j];
+                            a.textContent = ' ';
 
-                            tableCell.href = json['link'] + "/problem/" + matrix[i][j];
+                            tableCell.onclick = function(event) {
+                                    window.open(json['link'] + "/problem/" + matrix[i][j]);
+                                };
                             if (json['solved'][team_name][i * matrix[0].length + j] == '0') {
                                 tableCell.className = 'not__solved';
                             } else {

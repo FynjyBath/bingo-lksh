@@ -121,7 +121,7 @@ hr {
 
 table {
     border-collapse: collapse;
-    width: 92%;
+    width: 70%;
 }
 
 .text {
@@ -186,9 +186,7 @@ input {display: none;}
 .tabs__title:hover {opacity: 0.9;}
 
 .not__solved {
-    width: 20%;
-    height: 20%;
-    border: 1px solid black;
+    border: 1px solid rgb(110, 110, 110);
     background-color: black;
 }
 
@@ -198,13 +196,33 @@ input {display: none;}
 }
 
 .solved {
-    width: 20%;
-    height: 20%;
-    border: 1px solid rgb(0, 255, 47);
+    border: 1px solid rgb(110, 110, 110);
     background-color: rgb(0, 255, 47);
 }
 
 .solved:hover {
     cursor: pointer;
     background-color: #11e864;
+}
+
+.table_row {
+    
+}
+
+td {
+    text-align: center;
+    width:10%;
+    position:relative;
+    align-items: center;
+}
+
+td:after{
+    content: '';
+    display: block;
+    margin-top: 100%;
+}
+
+a {
+    font-size: 3vw;
+    margin: 40%;
 }
