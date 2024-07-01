@@ -116,7 +116,8 @@
 
                             tableCell.onclick = function(event) {
                                 new_window = window.open(json['link']);
-                                new_window.location.href = json['link'] + "/problem/" + matrix[i][j];
+                                wait(100);
+                                new_window.location.href = "/problem/" + matrix[i][j];
                             };
                             if (json['solved'][team_name][i * matrix[0].length + j] == '0') {
                                 tableCell.className = 'not__solved';
