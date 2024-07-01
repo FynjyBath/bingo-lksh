@@ -29,27 +29,7 @@
         </ul>
     </nav>
 
-    <div class="tabs" id="div__tabs">
-        <input class="tabs__tab" type="radio" id="tabs__tab1" name="tabstab" checked="checked"/>
-        <label class="tabs__title" for="tabs__tab1">Главная</label>
-        <div class="tabs__text">
-            <ul>
-                <li><a href="https://msu.ru/" class="link" target="_blank">МГУ</a></li>
-                <li><a href="https://internat.msu.ru" target="_blank" class="link">СУНЦ МГУ</a></li>
-            </ul>
-        </div>
-        
-        <input class="tabs__tab" type="radio" id="tabs__tab2" name="tabstab"/>
-        <label class="tabs__title" for="tabs__tab2">Статьи</label>
-        <div class="tabs__text">
-            <ul>
-                <li><a href="../../odd_pages/article1/article1.html" target="_blank" class="link">"Почему люди иногда ведут себя как бараны?" Анураз Минал Очкобар</a></li>
-                <li><a href="../../odd_pages/article2/article2.html" target="_blank" class="link">"СУНЦы ходят в зал!?" Coach</a></li>
-                <li><a href="../../odd_pages/article3/article3.html" target="_blank" class="link">"What is herd mentality?" Арслан Гуглевич</a></li>
-                <li><a href="../../odd_pages/article4/article4.html" target="_blank" class="link">"Как противостоять стадному чувству?" Поелаг Вкусненько</a></li>
-            </ul>
-        </div>
-    </div>
+    <div class="tabs" id="div__tabs"></div>
 
     <script defer>
         window.addEventListener('DOMContentLoaded', function () {
@@ -59,28 +39,30 @@
             Http.send();
 
             Http.onload = function() {
+                console.log(Http.responseText)
                 const json = JSON.parse(Http.responseText);
                 console.log(json);
 
                 const matrix = json['problems'];
 
                 const tab_tab = document.createElement('input');
+                tab_tab.name = 'tabstab';
                 tab_tab.type = 'radio';
-                tab_tab.class = 'tabs__tab';
-                tab_tab.checked = 'checked';
+                tab_tab.className = 'tabs__tab';
                 tab_tab.id = 'tabs__tab0';
                 document.getElementById('div__tabs').appendChild(tab_tab);
 
                 const tab_title = document.createElement('label');
-                tab_title.class = 'tabs__title';
-                tab_title.for = 'tabs__tab0';
+                tab_title.className = 'tabs__title';
+                tab_title.htmlFor = 'tabs__tab0';
+                tab_title.textContent = 'Суммарно';
                 document.getElementById('div__tabs').appendChild(tab_title);
 
                 const tab_text = document.createElement('div');
-                tab_text.class = 'tabs__text';
+                tab_text.className = 'tabs__text';
 
                 const table_container = document.createElement('div');
-                table_container.class = 'table-container';
+                table_container.className = 'table-container';
                 const table = document.createElement('table');
                 for (let i = 0; i < matrix.length; i++) {
                     const tableRow = document.createElement('tr');
@@ -102,6 +84,54 @@
                 tab_text.appendChild(table_container);
 
                 document.getElementById('div__tabs').appendChild(tab_text);
+
+                for (let team_name in json['solved']) {
+                    console.log(team_name);
+                    const tabs_tab = document.createElement('input');
+                    tabs_tab.name = 'tabstab';
+                    tabs_tab.type = 'radio';
+                    tabs_tab.className = 'tabs__tab';
+                    tabs_tab.id = 'tabs__tab' + team_name;
+                    document.getElementById('div__tabs').appendChild(tabs_tab);
+
+                    const tabs_title = document.createElement('label');
+                    tabs_title.className = 'tabs__title';
+                    tabs_title.htmlFor = 'tabs__tab' + team_name;
+                    tabs_title.textContent = team_name;
+                    document.getElementById('div__tabs').appendChild(tabs_title);
+
+                    const tabs_text = document.createElement('div');
+                    tabs_text.className = 'tabs__text';
+
+                    const tables_container = document.createElement('div');
+                    tables_container.className = 'table-container';
+                    const tables = document.createElement('table');
+                    for (let i = 0; i < matrix.length; i++) {
+                        const tableRow = document.createElement('tr');
+                        for (let j = 0; j < matrix[i].length; j++) {
+                            const tableCell = document.createElement('td');
+
+                            const a = document.createElement('a');
+                            a.textContent = matrix[i][j];
+                            a.href = json['link'] + "/problem/" + matrix[i][j];
+
+                            tableCell.href = json['link'] + "/problem/" + matrix[i][j];
+                            if (json['solved'][team_name][i * matrix[0].length + j] == '0') {
+                                tableCell.className = 'not__solved';
+                            } else {
+                                tableCell.className = 'solved';
+                            }
+
+                            tableCell.appendChild(a);
+                            tableRow.appendChild(tableCell);
+                        }
+                        tables.appendChild(tableRow);
+                    }
+                    tables_container.appendChild(tables);
+                    tabs_text.appendChild(tables_container);
+
+                    document.getElementById('div__tabs').appendChild(tabs_text);
+                }
             };
         });
     </script>
