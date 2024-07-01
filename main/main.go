@@ -125,7 +125,7 @@ func GetContest() Contest {
 }
 
 func GetQuery(w http.ResponseWriter, r *http.Request) {
-	if time.Now().Before(last_time.Add(time.Second * 5)) {
+	if time.Now().After(last_time.Add(time.Second * 5)) {
 		contest = GetContest()
 	    last_time = time.Now()
 	}
@@ -141,7 +141,7 @@ func GetQuery(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	contest = GetContest()
-	
+
 	http.HandleFunc("/get_table", GetQuery)
 
 	log.Println("Listening on :3000...")
