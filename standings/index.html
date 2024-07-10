@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Бинго</title>
-    <link rel="icon" href="src/logo.png" type="image/png">
+    <link rel="icon" href="../src/logo.png" type="image/png">
     <link rel="stylesheet" href="../main_style.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
             <tr>
                 <th class="a_logo">
                     <a href="https://t.me/ne_malo">
-                        <img src="src/logo.png" class="logo">
+                        <img src="../src/logo.png" class="logo">
                     </a>
                 </th>
                 <th class="a_logo">
@@ -25,14 +25,12 @@
     </header>
     <nav>
         <ul>
-            <li><button onclick="window.location.href='https://fynjybath.space/bingo-lksh/';" class="main-button">Главная</li>
-        </ul>
-        <ul>
-            <li><button onclick="window.location.href='https://fynjybath.space/bingo-lksh/standings';" class="main-button">Положение</li>
+            <li><button onclick="window.location.href='https://fynjybath.space/bingo-lksh/';">Главная</li>
+            <li><button onclick="window.location.href='https://fynjybath.space/bingo-lksh/standings';">Положение</li>
         </ul>
     </nav>
 
-    <div class="tabs" id="div__tabs"></div>
+    <div id="standings"></div>
 
     <script defer>
         window.addEventListener('DOMContentLoaded', function () {
@@ -42,111 +40,90 @@
             Http.send();
 
             Http.onload = function() {
-                console.log(Http.responseText)
+                console.log(Http.responseText);
                 const json = JSON.parse(Http.responseText);
                 console.log(json);
 
                 const matrix = json['problems'];
-
-                const tab_tab = document.createElement('input');
-                tab_tab.name = 'tabstab';
-                tab_tab.type = 'radio';
-                tab_tab.className = 'tabs__tab';
-                tab_tab.id = 'tabs__tab0';
-                document.getElementById('div__tabs').appendChild(tab_tab);
-
-                const tab_title = document.createElement('label');
-                tab_title.className = 'tabs__title';
-                tab_title.htmlFor = 'tabs__tab0';
-                tab_title.textContent = 'Задачи';
-                document.getElementById('div__tabs').appendChild(tab_title);
-
-                const tab_text = document.createElement('div');
-                tab_text.className = 'tabs__text';
-
-                const table_container = document.createElement('div');
-                table_container.className = 'table-container';
-                const table = document.createElement('table');
-                for (let i = 0; i < matrix.length; i++) {
-                    const tableRow = document.createElement('tr');
-                    for (let j = 0; j < matrix[i].length; j++) {
-                        const tableCell = document.createElement('td');
-
-                            const a = document.createElement('a');
-                            a.className = 'a_kek';
-                            a.textContent = ' ';
-
-                            tableCell.onclick = function(event) {
-                                new_window = window.open(json['link'] + "/problem/" + matrix[i][j]);
-                            };
-                            tableCell.className = 'not__solved';
-
-                            tableCell.appendChild(a);
-                            tableRow.appendChild(tableCell);
-                    }
-                    table.appendChild(tableRow);
-                }
-                table_container.appendChild(table);
-                tab_text.appendChild(table_container);
-
-                document.getElementById('div__tabs').appendChild(tab_text);
+                let score = new Map();
+                let penalty = new Map();
 
                 for (let team_name in json['solved']) {
                     console.log(team_name);
-                    const tabs_tab = document.createElement('input');
-                    tabs_tab.name = 'tabstab';
-                    tabs_tab.type = 'radio';
-                    tabs_tab.className = 'tabs__tab';
-                    tabs_tab.id = 'tabs__tab' + team_name;
-                    document.getElementById('div__tabs').appendChild(tabs_tab);
-
-                    const tabs_title = document.createElement('label');
-                    tabs_title.className = 'tabs__title';
-                    tabs_title.htmlFor = 'tabs__tab' + team_name;
-                    tabs_title.textContent = team_name;
-                    document.getElementById('div__tabs').appendChild(tabs_title);
-
-                    const tabs_text = document.createElement('div');
-                    tabs_text.className = 'tabs__text';
-
-                    const tables_container = document.createElement('div');
-                    tables_container.className = 'table-container';
-                    const tables = document.createElement('table');
                     for (let i = 0; i < matrix.length; i++) {
-                        const tableRow = document.createElement('tr');
-                        tableRow.className = 'table_row';
+                        let flag = true
+                        let sum = 0
                         for (let j = 0; j < matrix[i].length; j++) {
-                            const tableCell = document.createElement('td');
-
-                            const a = document.createElement('a');
-                            a.className = 'a_kek';
-                            a.textContent = ' ';
-
-                            tableCell.onclick = function(event) {
-                                new_window = window.open(json['link'] + "/problem/" + matrix[i][j]);
-                            };
                             if (json['solved'][team_name][i * matrix[0].length + j] == -1) {
-                                tableCell.className = 'not__solved';
+                                flag = false;
                             } else {
-                                tableCell.className = 'solved';
+                                sum = Math.max(json['solved'][team_name][i * matrix[0].length + j], sum);
                             }
-
-                            tableCell.appendChild(a);
-                            tableRow.appendChild(tableCell);
                         }
-                        tables.appendChild(tableRow);
+                        if (flag) {
+                            score[team_name] += 1;
+                            penalty[team_name] += sum;
+                        }
                     }
-                    tables_container.appendChild(tables);
-
-                    tabs_text.appendChild(tables_container);
-
-                    const a = document.createElement('a');
-                    a.className = 'a_end';
-                    a.textContent = 'Собранные строки:';
-                    tabs_text.appendChild(a);
-
-                    document.getElementById('div__tabs').appendChild(tabs_text);
                 }
+                for (let team_name in json['solved']) {
+                    console.log(team_name);
+                    for (let j = 0; j < matrix[i].length; j++) {
+                        let flag = true
+                        let sum = 0
+                        for (let i = 0; i < matrix.length; i++) {
+                            if (json['solved'][team_name][i * matrix[0].length + j] == -1) {
+                                flag = false;
+                            } else {
+                                sum = Math.max(json['solved'][team_name][i * matrix[0].length + j], sum);
+                            }
+                        }
+                        if (flag) {
+                            score[team_name] += 1;
+                            penalty[team_name] += sum;
+                        }
+                    }
+                }
+                for (let team_name in json['solved']) {
+                    console.log(team_name);
+                    let flag = true
+                    let sum = 0
+                    for (let i = 0; i < matrix.length; i++) {
+                        if (json['solved'][team_name][i * matrix[0].length + i] == -1) {
+                            flag = false;
+                        } else {
+                            sum = Math.max(json['solved'][team_name][i * matrix[0].length + i], sum);
+                        }
+                    }
+                    if (flag) {
+                        score[team_name] += 1;
+                        penalty[team_name] += sum;
+                    }
+                }
+                for (let team_name in json['solved']) {
+                    console.log(team_name);
+                    let flag = true
+                    let sum = 0
+                    for (let i = 0; i < matrix.length; i++) {
+                        if (json['solved'][team_name][i * matrix[0].length + (n - i - 1)] == -1) {
+                            flag = false;
+                        } else {
+                            sum = Math.max(json['solved'][team_name][i * matrix[0].length + (n - i - 1)], sum);
+                        }
+                    }
+                    if (flag) {
+                        score[team_name] += 1;
+                        penalty[team_name] += sum;
+                    }
+                }
+
+                let arr = [];
+                for (let team_name in json['solved']) {
+                    arr.push([-score[team_name], penalty[team_name], team_name]);
+                }
+                arr.sort();
+
+                console.log(arr);
             };
         });
     </script>
