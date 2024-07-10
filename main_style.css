@@ -205,10 +205,6 @@ input {display: none;}
     background-color: #11e864;
 }
 
-.table_row {
-    
-}
-
 td {
     text-align: center;
     width:10%;
@@ -233,4 +229,10 @@ td:after{
 
 .a-standings {
     font-size: 3vw;
+    
+}
+
+.table-standings {
+    border-collapse: collapse;
+    width: 70%;
 }
