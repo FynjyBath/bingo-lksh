@@ -61,8 +61,8 @@
                             }
                         }
                         if (flag) {
-                            score[team_name] += 1;
-                            penalty[team_name] += sum;
+                            score.set(team_name, score.get(team_name) + 1);
+                            penalty.set(team_name, penalty.get(team_name) + sum);
                         }
                     }
                 }
@@ -79,8 +79,8 @@
                             }
                         }
                         if (flag) {
-                            score[team_name] += 1;
-                            penalty[team_name] += sum;
+                            score.set(team_name, score.get(team_name) + 1);
+                            penalty.set(team_name, penalty.get(team_name) + sum);
                         }
                     }
                 }
@@ -96,8 +96,8 @@
                         }
                     }
                     if (flag) {
-                        score[team_name] += 1;
-                        penalty[team_name] += sum;
+                        score.set(team_name, score.get(team_name) + 1);
+                        penalty.set(team_name, penalty.get(team_name) + sum);
                     }
                 }
                 for (let team_name in json['solved']) {
@@ -111,14 +111,14 @@
                         }
                     }
                     if (flag) {
-                        score[team_name] += 1;
-                        penalty[team_name] += sum;
+                        score.set(team_name, score.get(team_name) + 1);
+                        penalty.set(team_name, penalty.get(team_name) + sum);
                     }
                 }
 
                 let arr = [];
                 for (let team_name in json['solved']) {
-                    arr.push([-score[team_name], penalty[team_name], team_name]);
+                    arr.push([-score.get(team_name), penalty.get(team_name), team_name]);
                 }
                 arr.sort();
 
