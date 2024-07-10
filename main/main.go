@@ -62,6 +62,8 @@ func QueryToAPI(cfg config.Config) (Contest, error) {
 		return Contest{}, errors.New("Ошибка при чтении ответа: " + fmt.Sprint(err))
 	}
 
+	log.Println(string(body))
+
 	var jsonData map[string]interface{}
 	err = json.Unmarshal(body, &jsonData)
 	if err != nil {
@@ -103,7 +105,11 @@ func QueryToAPI(cfg config.Config) (Contest, error) {
 
 		listProblems := row["problemResults"].([]interface{})
 		for _, problem := range listProblems {
-			contest.Teams[team] = append(contest.Teams[team], int((problem.(map[string]interface{})["points"]).(float64)))
+			if int((problem.(map[string]interface{})["points"]).(float64)) > 0 {
+				contest.Teams[team] = append(contest.Teams[team], int((problem.(map[string]interface{})["bestSubmissionTimeSeconds"]).(float64)))
+			} else {
+				contest.Teams[team] = append(contest.Teams[team], -1)
+			}
 		}
 	}
 
