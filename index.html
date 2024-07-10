@@ -134,6 +134,11 @@
                         tables.appendChild(tableRow);
                     }
                     tables_container.appendChild(tables);
+
+                    const a = document.createElement('a');
+                    a.className = 'a_kek';
+                    a.textContent = 'Собранные строки:';
+
                     tabs_text.appendChild(tables_container);
 
                     document.getElementById('div__tabs').appendChild(tabs_text);
