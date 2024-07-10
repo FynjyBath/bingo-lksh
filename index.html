@@ -122,7 +122,7 @@
                             tableCell.onclick = function(event) {
                                 new_window = window.open(json['link'] + "/problem/" + matrix[i][j]);
                             };
-                            if (json['solved'][team_name][i * matrix[0].length + j] != -1) {
+                            if (json['solved'][team_name][i * matrix[0].length + j] != "-1") {
                                 tableCell.className = 'not__solved';
                             } else {
                                 tableCell.className = 'solved';
