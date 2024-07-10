@@ -104,10 +104,10 @@
                     let flag = true
                     let sum = 0
                     for (let i = 0; i < matrix.length; i++) {
-                        if (json['solved'][team_name][i * matrix[0].length + (n - i - 1)] == -1) {
+                        if (json['solved'][team_name][i * matrix[0].length + (matrix.length - i - 1)] == -1) {
                             flag = false;
                         } else {
-                            sum = Math.max(json['solved'][team_name][i * matrix[0].length + (n - i - 1)], sum);
+                            sum = Math.max(json['solved'][team_name][i * matrix[0].length + (matrix.length - i - 1)], sum);
                         }
                     }
                     if (flag) {
