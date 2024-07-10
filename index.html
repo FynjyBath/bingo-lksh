@@ -135,11 +135,12 @@
                     }
                     tables_container.appendChild(tables);
 
+                    tabs_text.appendChild(tables_container);
+
                     const a = document.createElement('a');
                     a.className = 'a_kek';
                     a.textContent = 'Собранные строки:';
-
-                    tabs_text.appendChild(tables_container);
+                    tabs_text.appendChild(a);
 
                     document.getElementById('div__tabs').appendChild(tabs_text);
                 }
