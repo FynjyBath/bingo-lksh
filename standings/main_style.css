@@ -205,19 +205,6 @@ input {display: none;}
     background-color: #11e864;
 }
 
-td {
-    text-align: center;
-    width:10%;
-    position:relative;
-    align-items: center;
-}
-
-td:after{
-    content: '';
-    display: block;
-    margin-top: 100%;
-}
-
 .a_kek {
     font-size: 3vw;
     margin: 40%;
@@ -229,14 +216,15 @@ td:after{
 
 .a-standings {
     font-size: 3vw;
-    
+    color: white;
 }
 
 .table-standings {
     border-collapse: collapse;
-    width: 70%;
+    width: 100%;
+    
 }
 
 .td-standings {
-    
+    border: 1px solid rgb(110, 110, 110);
 }

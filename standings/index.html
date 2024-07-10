@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Бинго</title>
     <link rel="icon" href="../src/logo.png" type="image/png">
-    <link rel="stylesheet" href="../main_style.css">
+    <link rel="stylesheet" href="main_style.css">
 </head>
 <body>
     <header>
@@ -136,6 +136,7 @@
 
                 {
                     const tableCell = document.createElement('td');
+                    tableCell.className = 'td-standings';
                     const a = document.createElement('a');
                     a.className = 'a-standings';
                     a.textContent = 'N';
@@ -145,6 +146,7 @@
 
                 {
                     const tableCell = document.createElement('td');
+                    tableCell.className = 'td-standings';
                     const a = document.createElement('a');
                     a.className = 'a-standings';
                     a.textContent = 'Команда';
@@ -154,6 +156,7 @@
 
                 {
                     const tableCell = document.createElement('td');
+                    tableCell.className = 'td-standings';
                     const a = document.createElement('a');
                     a.className = 'a-standings';
                     a.textContent = 'Кол-во очков';
@@ -163,6 +166,7 @@
 
                 {
                     const tableCell = document.createElement('td');
+                    tableCell.className = 'td-standings';
                     const a = document.createElement('a');
                     a.className = 'a-standings';
                     a.textContent = 'Штраф';
@@ -171,6 +175,52 @@
                 }
 
                 tbs.appendChild(tableRow);
+
+                for (let i = 0; i < arr.length; i++) {
+                    const tableRow = document.createElement('tr');
+
+                    {
+                        const tableCell = document.createElement('td');
+                        tableCell.className = 'td-standings';
+                        const a = document.createElement('a');
+                        a.className = 'a-standings';
+                        a.textContent = toString(i + 1);
+                        tableCell.appendChild(a);
+                        tableRow.appendChild(tableCell);
+                    }
+
+                    {
+                        const tableCell = document.createElement('td');
+                        tableCell.className = 'td-standings';
+                        const a = document.createElement('a');
+                        a.className = 'a-standings';
+                        a.textContent = arr[i][3];
+                        tableCell.appendChild(a);
+                        tableRow.appendChild(tableCell);
+                    }
+
+                    {
+                        const tableCell = document.createElement('td');
+                        tableCell.className = 'td-standings';
+                        const a = document.createElement('a');
+                        a.className = 'a-standings';
+                        a.textContent = toString(-arr[i][0]);
+                        tableCell.appendChild(a);
+                        tableRow.appendChild(tableCell);
+                    }
+
+                    {
+                        const tableCell = document.createElement('td');
+                        tableCell.className = 'td-standings';
+                        const a = document.createElement('a');
+                        a.className = 'a-standings';
+                        a.textContent = toString(arr[i][1]);
+                        tableCell.appendChild(a);
+                        tableRow.appendChild(tableCell);
+                    }
+
+                    tbs.appendChild(tableRow);
+                }
 
                 document.getElementById('standings').appendChild(tbs);
             };
