@@ -226,3 +226,18 @@ td:after{
     font-size: 3vw;
     color: white;
 }
+
+.dv_end {
+    margin: 2%;
+}
+
+.a_start {
+    font-size: 3vw;
+    color: white;
+    margin: 2%;
+}
+
+.dv_start {
+    margin: 2%;
+}
+

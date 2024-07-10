@@ -49,6 +49,82 @@
 
                 const matrix = json['problems'];
 
+                let score = new Map();
+                let penalty = new Map();
+
+                for (let team_name in json['solved']) {
+                    score.set(team_name, 0);
+                    penalty.set(team_name, 0);
+                }
+
+                for (let team_name in json['solved']) {
+                    console.log(team_name);
+                    for (let i = 0; i < matrix.length; i++) {
+                        let flag = true
+                        let sum = 0
+                        for (let j = 0; j < matrix[i].length; j++) {
+                            if (json['solved'][team_name][i * matrix[0].length + j] == -1) {
+                                flag = false;
+                            } else {
+                                sum = Math.max(json['solved'][team_name][i * matrix[0].length + j], sum);
+                            }
+                        }
+                        if (flag) {
+                            score.set(team_name, score.get(team_name) + 1);
+                            penalty.set(team_name, penalty.get(team_name) + sum);
+                        }
+                    }
+                }
+                for (let team_name in json['solved']) {
+                    console.log(team_name);
+                    for (let j = 0; j < matrix[0].length; j++) {
+                        let flag = true
+                        let sum = 0
+                        for (let i = 0; i < matrix.length; i++) {
+                            if (json['solved'][team_name][i * matrix[0].length + j] == -1) {
+                                flag = false;
+                            } else {
+                                sum = Math.max(json['solved'][team_name][i * matrix[0].length + j], sum);
+                            }
+                        }
+                        if (flag) {
+                            score.set(team_name, score.get(team_name) + 1);
+                            penalty.set(team_name, penalty.get(team_name) + sum);
+                        }
+                    }
+                }
+                for (let team_name in json['solved']) {
+                    console.log(team_name);
+                    let flag = true
+                    let sum = 0
+                    for (let i = 0; i < matrix.length; i++) {
+                        if (json['solved'][team_name][i * matrix[0].length + i] == -1) {
+                            flag = false;
+                        } else {
+                            sum = Math.max(json['solved'][team_name][i * matrix[0].length + i], sum);
+                        }
+                    }
+                    if (flag) {
+                        score.set(team_name, score.get(team_name) + 1);
+                        penalty.set(team_name, penalty.get(team_name) + sum);
+                    }
+                }
+                for (let team_name in json['solved']) {
+                    let flag = true
+                    let sum = 0
+                    for (let i = 0; i < matrix.length; i++) {
+                        if (json['solved'][team_name][i * matrix[0].length + (matrix.length - i - 1)] == -1) {
+                            flag = false;
+                        } else {
+                            sum = Math.max(json['solved'][team_name][i * matrix[0].length + (matrix.length - i - 1)], sum);
+                        }
+                    }
+                    if (flag) {
+                        score.set(team_name, score.get(team_name) + 1);
+                        penalty.set(team_name, penalty.get(team_name) + sum);
+                    }
+                }
+
                 const tab_tab = document.createElement('input');
                 tab_tab.name = 'tabstab';
                 tab_tab.type = 'radio';
@@ -116,6 +192,16 @@
                     const tabs_text = document.createElement('div');
                     tabs_text.className = 'tabs__text';
 
+                    {
+                        const dv = document.createElement('div');
+                        dv.className = 'dv_start';
+                        const a = document.createElement('a');
+                        a.className = 'a_start';
+                        a.textContent = 'Кол-во очков: ' + (score.get(team_name)).toString() + " (Штраф: " + (penalty.get(team_name)).toString() + ")";
+                        dv.appendChild(a);
+                        tabs_text.appendChild(dv);
+                    }
+
                     const tables_container = document.createElement('div');
                     tables_container.className = 'table-container';
                     const tables = document.createElement('table');
@@ -147,11 +233,16 @@
 
                     tabs_text.appendChild(tables_container);
 
-                    const a = document.createElement('a');
-                    a.className = 'a_end';
-                    a.textContent = 'Закрепить эту команду';
-                    a.href = "https://fynjybath.space/bingo-lksh/?teamName=" + team_name;
-                    tabs_text.appendChild(a);
+                    {
+                        const dv = document.createElement('div');
+                        dv.className = 'dv_end';
+                        const a = document.createElement('a');
+                        a.className = 'a_end';
+                        a.textContent = 'Закрепить эту команду';
+                        a.href = "https://fynjybath.space/bingo-lksh/?teamName=" + team_name;
+                        dv.appendChild(a);
+                        tabs_text.appendChild(dv);
+                    }
 
                     document.getElementById('div__tabs').appendChild(tabs_text);
                 }
