@@ -94,7 +94,7 @@
                     tabs_tab.name = 'tabstab';
                     tabs_tab.type = 'radio';
                     tabs_tab.className = 'tabs__tab';
-                    tabs_tab.id = 'tabs__tab' + team_name.slice(0, Math.min(team_name.length, 10));
+                    tabs_tab.id = 'tabs__tab' + team_name;
                     document.getElementById('div__tabs').appendChild(tabs_tab);
 
                     const tabs_title = document.createElement('label');
@@ -122,8 +122,11 @@
                             tableCell.onclick = function(event) {
                                 new_window = window.open(json['link'] + "/problem/" + matrix[i][j]);
                             };
-                            tableCell.className = 'solved';
-                            
+                            if (json['solved'][team_name][i * matrix[0].length + j] != "-1") {
+                                tableCell.className = 'not__solved';
+                            } else {
+                                tableCell.className = 'solved';
+                            }
 
                             tableCell.appendChild(a);
                             tableRow.appendChild(tableCell);
