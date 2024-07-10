@@ -121,7 +121,7 @@ hr {
 
 table {
     border-collapse: collapse;
-    width: 70%;
+    width: 30%;
 }
 
 .text {
@@ -225,18 +225,4 @@ td:after{
 
 .a_end {
     font-size: 3vw;
-}
-
-.a-standings {
-    font-size: 3vw;
-    
-}
-
-.table-standings {
-    border-collapse: collapse;
-    width: 70%;
-}
-
-.td-standings {
-    
 }
