@@ -184,7 +184,7 @@
                         tableCell.className = 'td-standings';
                         const a = document.createElement('a');
                         a.className = 'a-standings';
-                        a.textContent = toString(i + 1);
+                        a.textContent = (i + 1).toString();
                         tableCell.appendChild(a);
                         tableRow.appendChild(tableCell);
                     }
@@ -194,7 +194,7 @@
                         tableCell.className = 'td-standings';
                         const a = document.createElement('a');
                         a.className = 'a-standings';
-                        a.textContent = arr[i][3];
+                        a.textContent = arr[i][2];
                         tableCell.appendChild(a);
                         tableRow.appendChild(tableCell);
                     }
@@ -204,7 +204,7 @@
                         tableCell.className = 'td-standings';
                         const a = document.createElement('a');
                         a.className = 'a-standings';
-                        a.textContent = toString(-arr[i][0]);
+                        a.textContent = (-arr[i][0]).toString();
                         tableCell.appendChild(a);
                         tableRow.appendChild(tableCell);
                     }
@@ -214,7 +214,7 @@
                         tableCell.className = 'td-standings';
                         const a = document.createElement('a');
                         a.className = 'a-standings';
-                        a.textContent = toString(arr[i][1]);
+                        a.textContent = (arr[i][1]).toString();
                         tableCell.appendChild(a);
                         tableRow.appendChild(tableCell);
                     }
