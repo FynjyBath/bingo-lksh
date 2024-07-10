@@ -68,7 +68,7 @@
                 }
                 for (let team_name in json['solved']) {
                     console.log(team_name);
-                    for (let j = 0; j < matrix[i].length; j++) {
+                    for (let j = 0; j < matrix[0].length; j++) {
                         let flag = true
                         let sum = 0
                         for (let i = 0; i < matrix.length; i++) {
@@ -101,7 +101,6 @@
                     }
                 }
                 for (let team_name in json['solved']) {
-                    console.log(team_name);
                     let flag = true
                     let sum = 0
                     for (let i = 0; i < matrix.length; i++) {
