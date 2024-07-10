@@ -49,6 +49,11 @@
                 let penalty = new Map();
 
                 for (let team_name in json['solved']) {
+                    score.set(team_name, 0);
+                    penalty.set(team_name, 0);
+                }
+
+                for (let team_name in json['solved']) {
                     console.log(team_name);
                     for (let i = 0; i < matrix.length; i++) {
                         let flag = true
