@@ -128,6 +128,51 @@
                 arr.sort();
 
                 console.log(arr);
+
+                const tbs = document.createElement('table');
+                tbs.className = 'table-standings';
+                
+                const tableRow = document.createElement('tr');
+
+                {
+                    const tableCell = document.createElement('td');
+                    const a = document.createElement('a');
+                    a.className = 'a-standings';
+                    a.textContent = 'N';
+                    tableCell.appendChild(a);
+                    tableRow.appendChild(tableCell);
+                }
+
+                {
+                    const tableCell = document.createElement('td');
+                    const a = document.createElement('a');
+                    a.className = 'a-standings';
+                    a.textContent = 'Команда';
+                    tableCell.appendChild(a);
+                    tableRow.appendChild(tableCell);
+                }
+
+                {
+                    const tableCell = document.createElement('td');
+                    const a = document.createElement('a');
+                    a.className = 'a-standings';
+                    a.textContent = 'Кол-во очков';
+                    tableCell.appendChild(a);
+                    tableRow.appendChild(tableCell);
+                }
+
+                {
+                    const tableCell = document.createElement('td');
+                    const a = document.createElement('a');
+                    a.className = 'a-standings';
+                    a.textContent = 'Штраф';
+                    tableCell.appendChild(a);
+                    tableRow.appendChild(tableCell);
+                }
+
+                tbs.appendChild(tableRow);
+
+                document.getElementById('standings').appendChild(tbs);
             };
         });
     </script>
